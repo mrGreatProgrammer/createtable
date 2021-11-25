@@ -1,0 +1,86 @@
+*{
+    margin: 0;
+    padding: 0;
+    word-spacing: 2px;
+    letter-spacing: .04em;
+}
+.my-list-box {
+    display: flex;
+    font-size: 24px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background: #333;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+}
+
+h3{
+    font-size: 1.9em;
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Fruktur', cursive;
+    text-transform: uppercase;
+}
+
+.all-posts{
+    width: 80%;
+    padding: 0;
+    /* padding: 30px; */
+    border: 1px solid #999;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+table{
+    padding: 0;
+}
+
+thead{
+    border: none;
+    margin: 0;
+    width: 100%;
+    background: lightgreen;
+}
+
+th{
+    font-family: 'Roboto', sans-serif;
+    padding: 15px;
+    text-align: center;
+}
+
+td{
+    font-family: 'Roboto', sans-serif;
+    padding: 5px;
+    text-align: justify;
+}
+
+tr{
+    font-weight: 500;
+    font-size: .9em;
+}
+
+#tr{
+    font-weight: 700;
+    font-size: 1.3em;
+    width: 100%;
+    background: rgb(6, 1, 58);
+}
+tr:nth-child(even){
+    background: #777;
+}
+
+tr:nth-child(odd){
+    background: #acaaaa;
+}
+
+td{
+    text-align: center;
+}
+
+
+span{
+    margin: 5px 0;
+}
