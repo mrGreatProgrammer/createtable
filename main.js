@@ -1,6 +1,8 @@
 const allPosts = document.querySelector(".the-posts");
-const userId = document.querySelector(".user-id")
+const userId = document.querySelector(".user-id");
 const postIdClass = document.querySelector(".post-id");
+
+let posts = []
 
 function createLi(theUserId, theID, theTitle) {
   let postEl = document.createElement("tr");
@@ -12,8 +14,13 @@ function createLi(theUserId, theID, theTitle) {
   // создаём span где храним id post`a
   let postIdEl = document.createElement("td");
   postIdEl.className = "post-id"; // ставим класс
-  postIdEl.textContent = theID;
+  // postIdEl.textContent = theID;
   postEl.appendChild(postIdEl);
+  let btn = document.createElement("button");
+  btn.className = "btn";
+  btn.textContent = theID;
+  postIdEl.appendChild(btn);
+  btn.onclick = showMore;
   // создаём span где храним title нашего поста
   let titleEl = document.createElement("td");
   titleEl.className = "title-post"; // ставим класс
@@ -23,6 +30,11 @@ function createLi(theUserId, theID, theTitle) {
   // помещяем всё в одном месте
   allPosts.appendChild(postEl);
 }
+
+// function showMore() {
+//   console.log(this.textContent);
+//   // console.log();
+// }
 
 function good() {
   // 1. Создаём новый XMLHttpRequest-объект
@@ -52,10 +64,9 @@ function good() {
       savedRes = xhr.response;
       console.log(savedRes);
 
-      
-
       // WE CALL DISPLAY POSTS FUNCTION WHEN WE GET THE RESPONSE
       displayPosts(savedRes);
+      getInfo(savedRes)
     }
   };
 
@@ -74,10 +85,34 @@ function good() {
 
 // DISPLAY POSTS FUNCTION
 function displayPosts(array) {
-    for (let i = 0; i < array.length; i++) {
-        const element = array[i];
-        createLi(element.userId, element.id, element.title)
+  for (let i = 0; i < array.length; i++) {
+    const element = array[i];
+    createLi(element.userId, element.id, element.title);
+  }
+}
+
+
+function getInfo(array) {
+  for (let i = 0; i < array.length; i++) {
+    posts.push(array[i])
+    // const element = array[i];
+    // createLi(element.userId, element.id, element.title);
+  }
+  return posts
+}
+
+function showMore() {
+  posts
+  for (let i = 0; i < posts.length; i++) {
+    const element = posts[i];
+    if (this.textContent == element.id) {
+      console.log(element.body);
     }
+  }
+  // console.log(posts);
+  console.log(this.textContent);
+  // console.log();
 }
 
 good();
+
