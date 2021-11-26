@@ -1,72 +1,83 @@
-const allPosts = document.querySelector(".the-posts")
-// const 
-// const userId = document.querySelector(".user-id")
-
-// THE POSTS
-const posts = [
-    {
-        "userId": 1,
-        "id": 1,
-        "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      },
-      {
-        "userId": 1,
-        "id": 2,
-        "title": "qui est esse",
-        "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
-      },
-      {
-        "userId": 2,
-        "id": 3,
-        "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-        "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
-      },
-      {
-        "userId": 1,
-        "id": 4,
-        "title": "eum et est occaecati",
-        "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
-      },
-      {
-      "userId": 2,
-      "id": 5,
-      "title": "nesciunt quas odio",
-      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque"
-    },
-]
+const allPosts = document.querySelector(".the-posts");
+const userId = document.querySelector(".user-id")
+const postIdClass = document.querySelector(".post-id");
 
 function createLi(theUserId, theID, theTitle) {
-    let postEl = document.createElement("tr");
-    // создаём span где храним id user`a
-    let userIdEl = document.createElement("td");
-    userIdEl.className = "user-id"; // ставим класс
-    userIdEl.textContent = theUserId;
-    postEl.appendChild(userIdEl);
-    // создаём span где храним id post`a
-    let postIdEl = document.createElement("td");
-    postIdEl.className = "post-id" // ставим класс
-    postIdEl.textContent = theID;
-    postEl.appendChild(postIdEl)
-    // создаём span где храним title нашего поста
-    let titleEl = document.createElement("td");
-    titleEl.className = "title-post"; // ставим класс
-    titleEl.textContent = theTitle;
-    postEl.appendChild(titleEl)
+  let postEl = document.createElement("tr");
+  // создаём span где храним id user`a
+  let userIdEl = document.createElement("td");
+  userIdEl.className = "user-id"; // ставим класс
+  userIdEl.textContent = theUserId;
+  postEl.appendChild(userIdEl);
+  // создаём span где храним id post`a
+  let postIdEl = document.createElement("td");
+  postIdEl.className = "post-id"; // ставим класс
+  postIdEl.textContent = theID;
+  postEl.appendChild(postIdEl);
+  // создаём span где храним title нашего поста
+  let titleEl = document.createElement("td");
+  titleEl.className = "title-post"; // ставим класс
+  titleEl.textContent = theTitle;
+  postEl.appendChild(titleEl);
 
-    // помещяем всё в одном месте
-    allPosts.appendChild(postEl);
+  // помещяем всё в одном месте
+  allPosts.appendChild(postEl);
+}
+
+function good() {
+  // 1. Создаём новый XMLHttpRequest-объект
+  const xhr = new XMLHttpRequest();
+
+  // 2. Настраиваем его: GET-запрос по URL
+  xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
+
+  console.log("BEFORE REQUEST");
+
+  xhr.responseType = "json";
+
+  // 3. Отсылаем запрос
+  xhr.send();
+
+  console.log("AFTER REQUEST");
+
+  // 4. Этот код сработает после того, как мы получим ответ сервера
+  xhr.onload = function () {
+    if (xhr.status != 200) {
+      // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
+      console.log(`Ошибка ${xhr.status}: ${xhr.statusText}`); // Например, 404: Not Found
+    } else {
+      // если всё прошло гладко, выводим результат
+      console.log(`Готово, получили ${xhr.response.length} байт`);
+      // response -- это ответ сервера
+      savedRes = xhr.response;
+      console.log(savedRes);
+
+      
+
+      // WE CALL DISPLAY POSTS FUNCTION WHEN WE GET THE RESPONSE
+      displayPosts(savedRes);
+    }
+  };
+
+  xhr.onprogress = function (event) {
+    if (event.lengthComputable) {
+      alert(`Получено ${event.loaded} из ${event.total} байт`);
+    } else {
+      console.log(`Получено ${event.loaded} байт`); // если в ответе нет заголовка Content-Length
+    }
+  };
+
+  xhr.onerror = function () {
+    console.log("Запрос не удался");
+  };
 }
 
 // DISPLAY POSTS FUNCTION
 function displayPosts(array) {
-    var uId = "";
     for (let i = 0; i < array.length; i++) {
         const element = array[i];
         createLi(element.userId, element.id, element.title)
     }
-    console.log(uId);
-    userId.textContent = uId;
 }
 
-displayPosts(posts)
+good();
