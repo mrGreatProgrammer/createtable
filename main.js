@@ -2,6 +2,19 @@ const allPosts = document.querySelector(".the-posts");
 const userId = document.querySelector(".user-id");
 const postIdClass = document.querySelector(".post-id");
 
+const btn = document.getElementById('btn');
+const hi = document.getElementById('popupwindow');
+const e = document.getElementById('e');
+const idInfo = document.getElementById('id-info');
+const titleInfo = document.getElementById('title-info');
+const bodyInfo = document.getElementById('body-info');
+
+
+// EXIT FROM POP UP WINDOW
+e.onclick = ()=>{
+  hi.style.display ="none"
+}
+
 let posts = []
 
 function createLi(theUserId, theID, theTitle) {
@@ -107,10 +120,15 @@ function showMore() {
     const element = posts[i];
     if (this.textContent == element.id) {
       console.log(element.body);
+      idInfo.textContent = element.id;
+      titleInfo.textContent = element.title;
+
+      bodyInfo.textContent = element.body;
     }
   }
   // console.log(posts);
   console.log(this.textContent);
+  hi.style.display="block"
   // console.log();
 }
 
